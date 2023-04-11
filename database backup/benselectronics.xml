@@ -1,0 +1,1283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.1.1
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Generation Time: Sep 27, 2021 at 10:19 AM
+- Server version: 10.4.20-MariaDB
+- PHP Version: 8.0.8
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="benselectronics" collation="utf8_bin" charset="utf8">
+            <pma:table name="bpmlinks">
+                CREATE TABLE `bpmlinks` (
+                  `siebelcircuit` int(11) NOT NULL,
+                  `customername` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `projectmanager` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `accountmanager` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `physicaladdress` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `bandwidth` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `servicetype` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `medium` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `cperson` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `cdetails` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `status` enum('completed','wip','returned') COLLATE utf8_bin NOT NULL,
+                  `datereceived` date NOT NULL,
+                  `datecompleted` date NOT NULL,
+                  `comments` varchar(50) COLLATE utf8_bin NOT NULL,
+                  PRIMARY KEY (`siebelcircuit`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='stores bpm link details';
+            </pma:table>
+            <pma:table name="entrylog">
+                CREATE TABLE `entrylog` (
+                  `workorder` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `entry` int(11) NOT NULL,
+                  `clientname` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `circuitid` bigint(11) NOT NULL,
+                  `projectmanager` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `date` date NOT NULL,
+                  `contact` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `servicetype` enum('E1/SIP','Internet','WAN/IP MPLS','PTP','Video Conference','Wi-Fi') COLLATE utf8_bin NOT NULL,
+                  `technology` enum('Active Fiber','Passive Fiber','Bespoke','Ceragon','LTE','Microwave','Wimax') COLLATE utf8_bin NOT NULL,
+                  `jobdescription` text COLLATE utf8_bin NOT NULL,
+                  `execution` enum('Deployment','Support') COLLATE utf8_bin NOT NULL,
+                  `status` enum('Completed','WIP','Returned','Pending','Onhold') COLLATE utf8_bin NOT NULL,
+                  `ipaddress` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `physicallocation` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `buildingname` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `buildingid` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `orderdeadline` date NOT NULL,
+                  PRIMARY KEY (`workorder`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+            </pma:table>
+            <pma:table name="instructions">
+                CREATE TABLE `instructions` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `date` date NOT NULL,
+                  `mhr` float NOT NULL,
+                  `pax` int(11) NOT NULL,
+                  `artisan` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `instruction` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `rate` float NOT NULL,
+                  `amount` int(11) NOT NULL,
+                  `orderid` varchar(50) COLLATE utf8_bin NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+            </pma:table>
+            <pma:table name="orderitems">
+                CREATE TABLE `orderitems` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `stockcode` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `quantity` int(11) NOT NULL,
+                  `um` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `description` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `up` int(11) NOT NULL,
+                  `value` int(11) NOT NULL,
+                  `orderid` varchar(50) COLLATE utf8_bin NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+            </pma:table>
+            <pma:table name="session">
+                CREATE TABLE `session` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `year` varchar(20) NOT NULL,
+                  `session` enum('1','2','3','4') NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="staff">
+                CREATE TABLE `staff` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `firstname` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `lastname` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `id_no` bigint(20) NOT NULL,
+                  `email` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `username` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `mobileno` varchar(50) COLLATE utf8_bin NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+            </pma:table>
+            <pma:table name="surveyjobs">
+                CREATE TABLE `surveyjobs` (
+                  `customername` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `solutionarchitect` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `physicaladdress` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `coordinates` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `surveytype` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `reqcode` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `contactperson` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `contactdetails` bigint(50) NOT NULL,
+                  `fieldengineer` varchar(50) COLLATE utf8_bin NOT NULL,
+                  `engcontacts` bigint(50) NOT NULL,
+                  `datereceived` date NOT NULL,
+                  `comments` text COLLATE utf8_bin NOT NULL,
+                  PRIMARY KEY (`customername`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+            </pma:table>
+            <pma:table name="user">
+                CREATE TABLE `user` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `username` varchar(50) NOT NULL,
+                  `password` varchar(50) NOT NULL,
+                  `salt` varchar(50) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `user` (`username`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'benselectronics'
+    -->
+    <database name="benselectronics">
+        <!-- Table bpmlinks -->
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95000234</column>
+            <column name="customername">Base Titanium</column>
+            <column name="projectmanager">Mary Murungi</column>
+            <column name="accountmanager">Philip Wasike</column>
+            <column name="physicaladdress">Ukunda</column>
+            <column name="bandwidth">IFB 10</column>
+            <column name="servicetype">MPLS</column>
+            <column name="medium">Fiber Passive</column>
+            <column name="cperson">Jonathan Munguire</column>
+            <column name="cdetails"> 254 78299002</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-13</column>
+            <column name="datecompleted">2021-08-17</column>
+            <column name="comments">On hold</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95004926</column>
+            <column name="customername">Shreej Enterprise</column>
+            <column name="projectmanager">James Konya</column>
+            <column name="accountmanager">Vilenda Kiprop</column>
+            <column name="physicaladdress">Mariakana</column>
+            <column name="bandwidth">50 Mbps</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">Fiber Active</column>
+            <column name="cperson">Hiren Andore</column>
+            <column name="cdetails">0737560996</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-18</column>
+            <column name="datecompleted">2021-08-25</column>
+            <column name="comments">Closed on BPM</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95060784</column>
+            <column name="customername">KCB Kilifi</column>
+            <column name="projectmanager">Mary Murungi</column>
+            <column name="accountmanager">Charles Mwangangi</column>
+            <column name="physicaladdress">Kilifi</column>
+            <column name="bandwidth">IFB 20</column>
+            <column name="servicetype">LTE</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Prince Mukasi</column>
+            <column name="cdetails">0788299911</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-13</column>
+            <column name="datecompleted">2021-08-20</column>
+            <column name="comments">Closed on BPM</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95063356</column>
+            <column name="customername">Jambo Steel</column>
+            <column name="projectmanager">Dancan Mangori</column>
+            <column name="accountmanager">Mwikali</column>
+            <column name="physicaladdress">Mariakani</column>
+            <column name="bandwidth">IFB 3</column>
+            <column name="servicetype">MPLS</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Musyoka</column>
+            <column name="cdetails">7987477748</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-18</column>
+            <column name="datecompleted">2021-08-27</column>
+            <column name="comments">Network Issues</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95067735</column>
+            <column name="customername">KCB Mariakana</column>
+            <column name="projectmanager">Dancan Mangori</column>
+            <column name="accountmanager">Mwikali</column>
+            <column name="physicaladdress">Mazeras</column>
+            <column name="bandwidth">IFB 3</column>
+            <column name="servicetype">MPLS</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Steve Kithi</column>
+            <column name="cdetails">7987477748</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-11</column>
+            <column name="datecompleted">2021-08-19</column>
+            <column name="comments">Network Issues</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95067774</column>
+            <column name="customername">Watu Credit</column>
+            <column name="projectmanager">Geofry Muchiri</column>
+            <column name="accountmanager">Hamisi Ndula</column>
+            <column name="physicaladdress">Malindi</column>
+            <column name="bandwidth">100 Mbps</column>
+            <column name="servicetype">Microwave</column>
+            <column name="medium">Ceragon</column>
+            <column name="cperson">Prince Mukasi</column>
+            <column name="cdetails">0788299911</column>
+            <column name="status">returned</column>
+            <column name="datereceived">2021-08-12</column>
+            <column name="datecompleted">2021-08-10</column>
+            <column name="comments">Not fiber Ready</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95067777</column>
+            <column name="customername">Jambo Steel</column>
+            <column name="projectmanager">Dancan Mangori</column>
+            <column name="accountmanager">Mwikali</column>
+            <column name="physicaladdress">Mariakani</column>
+            <column name="bandwidth">IFB 3</column>
+            <column name="servicetype">MPLS</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Steve Kithi</column>
+            <column name="cdetails">7987477748</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-26</column>
+            <column name="datecompleted">2021-08-21</column>
+            <column name="comments">Installation</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95067784</column>
+            <column name="customername">Jambo Steel</column>
+            <column name="projectmanager">Dancan Mangori</column>
+            <column name="accountmanager">Mwikali</column>
+            <column name="physicaladdress">Mariakani</column>
+            <column name="bandwidth">IFB 3</column>
+            <column name="servicetype">MPLS</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Steve Kithi</column>
+            <column name="cdetails">0788299911</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-13</column>
+            <column name="datecompleted">2021-08-20</column>
+            <column name="comments">Network Issues</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95067788</column>
+            <column name="customername">Kenya bureau of standards</column>
+            <column name="projectmanager">Dancan Mangori</column>
+            <column name="accountmanager">Mwikali</column>
+            <column name="physicaladdress">Lamu</column>
+            <column name="bandwidth">IFB 3</column>
+            <column name="servicetype">E1</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Saliah</column>
+            <column name="cdetails">0788299911</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-19</column>
+            <column name="datecompleted">2021-08-20</column>
+            <column name="comments">Network Issues</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95067884</column>
+            <column name="customername">NAGID ABUBAKAR</column>
+            <column name="projectmanager">Mary Wangoi</column>
+            <column name="accountmanager">Metrine Nicholas</column>
+            <column name="physicaladdress">MALINDI</column>
+            <column name="bandwidth">10 Mbps</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Najid Abubakari</column>
+            <column name="cdetails">0785643254</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-20</column>
+            <column name="datecompleted">2021-08-27</column>
+            <column name="comments">Physical Installation</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95067886</column>
+            <column name="customername">East African Roadways</column>
+            <column name="projectmanager">James Konya</column>
+            <column name="accountmanager">Vallary Ubare</column>
+            <column name="physicaladdress">Mombasa Bonje</column>
+            <column name="bandwidth">15 Mbps</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">Fiber Active</column>
+            <column name="cperson">East African Roadways</column>
+            <column name="cdetails">0704555777</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-20</column>
+            <column name="datecompleted">2021-08-26</column>
+            <column name="comments">Intergration</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95068955</column>
+            <column name="customername">Watu Credit</column>
+            <column name="projectmanager">Geofrey Muchiri</column>
+            <column name="accountmanager">Charles Mwangangi</column>
+            <column name="physicaladdress">Mazeras</column>
+            <column name="bandwidth">10 Mbps</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">Fiber Active</column>
+            <column name="cperson">Amhed</column>
+            <column name="cdetails">0788299911</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-13</column>
+            <column name="datecompleted">2021-08-18</column>
+            <column name="comments">Intergration</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95069935</column>
+            <column name="customername">KCB Mariakana</column>
+            <column name="projectmanager">Ernest Katama</column>
+            <column name="accountmanager">Mwikali</column>
+            <column name="physicaladdress">Mariakani</column>
+            <column name="bandwidth">IFB 3</column>
+            <column name="servicetype">MPLS</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Steve Kithi</column>
+            <column name="cdetails">7987477748</column>
+            <column name="status">returned</column>
+            <column name="datereceived">2021-08-12</column>
+            <column name="datecompleted">2021-08-19</column>
+            <column name="comments">Installation</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95069957</column>
+            <column name="customername">Yehu</column>
+            <column name="projectmanager">Mary Murungi</column>
+            <column name="accountmanager">Mwanahidi</column>
+            <column name="physicaladdress">Mariakana</column>
+            <column name="bandwidth">10 Mbps</column>
+            <column name="servicetype">gpon</column>
+            <column name="medium">LTE</column>
+            <column name="cperson">Mwema</column>
+            <column name="cdetails">078883993</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-06</column>
+            <column name="datecompleted">2021-08-13</column>
+            <column name="comments">Installation</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95069978</column>
+            <column name="customername">Mephi Services</column>
+            <column name="projectmanager">Nancy Mwithukia</column>
+            <column name="accountmanager">Hassan Abdi</column>
+            <column name="physicaladdress">Lamu</column>
+            <column name="bandwidth">5 Mbps</column>
+            <column name="servicetype">Ceragon</column>
+            <column name="medium">LTE</column>
+            <column name="cperson">Kathere Kausi</column>
+            <column name="cdetails">0712795883</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-12</column>
+            <column name="datecompleted">2021-08-14</column>
+            <column name="comments">Customer not ready</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95069981</column>
+            <column name="customername">Northen King Transporters</column>
+            <column name="projectmanager">Broose Otieno</column>
+            <column name="accountmanager">Vallary Ubare</column>
+            <column name="physicaladdress">Sourthen House Msa</column>
+            <column name="bandwidth">IFB 5</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Abdililahidir</column>
+            <column name="cdetails">0729764770</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-20</column>
+            <column name="datecompleted">2021-08-25</column>
+            <column name="comments">Closed on BPM</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95069982</column>
+            <column name="customername">LCL Logistics</column>
+            <column name="projectmanager">Broose Otieno</column>
+            <column name="accountmanager">Vilenda Kiprop</column>
+            <column name="physicaladdress">Appolo house Mombasa</column>
+            <column name="bandwidth">IFB 10</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Padma Vasaran</column>
+            <column name="cdetails"> 254732581833</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-18</column>
+            <column name="datecompleted">2021-08-25</column>
+            <column name="comments">On hold</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95073376</column>
+            <column name="customername">Immigration Ministry</column>
+            <column name="projectmanager">Eureka Kingoo</column>
+            <column name="accountmanager">Humphrey Njeru</column>
+            <column name="physicaladdress">Kilindini</column>
+            <column name="bandwidth">2 Mbps </column>
+            <column name="servicetype">MPLS</column>
+            <column name="medium">Fiber Active</column>
+            <column name="cperson">Isaih koril</column>
+            <column name="cdetails">0721418200</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-17</column>
+            <column name="datecompleted">2021-08-24</column>
+            <column name="comments">Physical Installation</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95073461</column>
+            <column name="customername">748 AIR SERVICES (K) LTD</column>
+            <column name="projectmanager">Beth Mulure</column>
+            <column name="accountmanager">Karanja Susan</column>
+            <column name="physicaladdress">Moi International Airport</column>
+            <column name="bandwidth">IFB 10</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">Fiber Active</column>
+            <column name="cperson">Desmont Wagumba</column>
+            <column name="cdetails"> 254728748007</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-26</column>
+            <column name="datecompleted">2021-09-02</column>
+            <column name="comments">Physical Installation</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">95073904</column>
+            <column name="customername">AMADEUS EA</column>
+            <column name="projectmanager">Beth Muleru</column>
+            <column name="accountmanager">Vallary Ubare</column>
+            <column name="physicaladdress">Mombasa, Meru Road</column>
+            <column name="bandwidth">IFB 5</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">Fiber GPON</column>
+            <column name="cperson">Francis Katiku</column>
+            <column name="cdetails"> 254725224242</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-26</column>
+            <column name="datecompleted">2021-09-02</column>
+            <column name="comments">Intergration</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">110653066</column>
+            <column name="customername">MDZONGOLONI SECONDARY SCHOOL</column>
+            <column name="projectmanager">Broose Otieno</column>
+            <column name="accountmanager">MWANAIDI RAMADHAN</column>
+            <column name="physicaladdress">Mdzongoloni Sec School Kilifi</column>
+            <column name="bandwidth">IFB 5</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">LTE</column>
+            <column name="cperson">SPONSOR </column>
+            <column name="cdetails">745137201</column>
+            <column name="status">completed</column>
+            <column name="datereceived">2021-08-04</column>
+            <column name="datecompleted">2021-08-06</column>
+            <column name="comments">Closed on Mail</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">110653450</column>
+            <column name="customername">REUVEN HAROUSH</column>
+            <column name="projectmanager">Mary Murungi</column>
+            <column name="accountmanager">Esther Mutisya</column>
+            <column name="physicaladdress">LAMU</column>
+            <column name="bandwidth">IFB 5</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">LTE</column>
+            <column name="cperson">N/A</column>
+            <column name="cdetails">N/A</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-23</column>
+            <column name="datecompleted">2021-08-24</column>
+            <column name="comments">Physical Installation</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">110653460</column>
+            <column name="customername">JACKLINE GATAVI OWALA</column>
+            <column name="projectmanager">Mary Murungi</column>
+            <column name="accountmanager">Esther Mutisya</column>
+            <column name="physicaladdress">Gasaro Road, Mtwapa</column>
+            <column name="bandwidth">IFB 3</column>
+            <column name="servicetype">MPLS</column>
+            <column name="medium">LTE</column>
+            <column name="cperson">Jackline Owala</column>
+            <column name="cdetails">722909830</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-20</column>
+            <column name="datecompleted">2021-08-23</column>
+            <column name="comments">Physical Installation</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">110660535</column>
+            <column name="customername">Total Kenya - MIA </column>
+            <column name="projectmanager">James Konya</column>
+            <column name="accountmanager">Esther Mutisya</column>
+            <column name="physicaladdress">Moi International Airport</column>
+            <column name="bandwidth">IFB 5</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">LTE</column>
+            <column name="cperson">Wesley Ongoti</column>
+            <column name="cdetails">0722878016</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-20</column>
+            <column name="datecompleted">2021-08-23</column>
+            <column name="comments">Intergration</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">1105366483</column>
+            <column name="customername">Base Titanium - Likoni</column>
+            <column name="projectmanager">Beth Muleru</column>
+            <column name="accountmanager">Vilenda Kiprop</column>
+            <column name="physicaladdress">Taara Building</column>
+            <column name="bandwidth">IFB 5</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">LTE</column>
+            <column name="cperson">Dena Geofrey</column>
+            <column name="cdetails">0766443566</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-26</column>
+            <column name="datecompleted">2021-09-02</column>
+            <column name="comments">Physical Installation</column>
+        </table>
+        <table name="bpmlinks">
+            <column name="siebelcircuit">1107758847</column>
+            <column name="customername">Lucy Wangeci</column>
+            <column name="projectmanager">Rispa Barasa</column>
+            <column name="accountmanager">Vincent Nguli</column>
+            <column name="physicaladdress">Kilifi Bofa Road</column>
+            <column name="bandwidth">10 Mbps</column>
+            <column name="servicetype">Internet</column>
+            <column name="medium">LTE</column>
+            <column name="cperson">Kituu Kimba</column>
+            <column name="cdetails">07440035256</column>
+            <column name="status">wip</column>
+            <column name="datereceived">2021-08-26</column>
+            <column name="datecompleted">2021-08-27</column>
+            <column name="comments">Intergration</column>
+        </table>
+        <!-- Table entrylog -->
+        <table name="entrylog">
+            <column name="workorder">BES0002574</column>
+            <column name="entry">2574</column>
+            <column name="clientname">AFRICA DREAM LTD</column>
+            <column name="circuitid">95069998</column>
+            <column name="projectmanager">STEVEN NGOMBO</column>
+            <column name="date">2021-09-06</column>
+            <column name="contact">0705349932 Rama</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Active Fiber</column>
+            <column name="jobdescription">New installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">Completed</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Lamu</column>
+            <column name="buildingname">Lamu lappest</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-13</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002575</column>
+            <column name="entry">2575</column>
+            <column name="clientname">AFRICA DREAM LTD</column>
+            <column name="circuitid">95069999</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-06</column>
+            <column name="contact">705349932 Rama</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Active Fiber</column>
+            <column name="jobdescription">New installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">Completed</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Lamu</column>
+            <column name="buildingname">Lamu lappest</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-13</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002576</column>
+            <column name="entry">2576</column>
+            <column name="clientname">KENYA AIRPORTS AUTHORITY MALINDI</column>
+            <column name="circuitid">95072612</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-06</column>
+            <column name="contact">0721944067 Stephen</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">New installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Malindi</column>
+            <column name="buildingname">KCAA Malindi</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-13</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002577</column>
+            <column name="entry">2577</column>
+            <column name="clientname">TRANSFALGER ENTERPRISES LTD</column>
+            <column name="circuitid">95069992</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-06</column>
+            <column name="contact">716588492 Rodger</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Fiber installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mombasa</column>
+            <column name="buildingname">Galaxy suri</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-13</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002578</column>
+            <column name="entry">2578</column>
+            <column name="clientname">KENYA AIRPORTS AUTHORITY MOMBASA BACKUP</column>
+            <column name="circuitid">95072614</column>
+            <column name="projectmanager">Sammy Mutisya</column>
+            <column name="date">2021-09-06</column>
+            <column name="contact">721944067 Stephen</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Ceragon</column>
+            <column name="jobdescription">Deployment new installation back up link</column>
+            <column name="execution">Deployment</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mombasa</column>
+            <column name="buildingname">MIA Mombasa</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-10-06</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002579</column>
+            <column name="entry">2579</column>
+            <column name="clientname">KENYA AIRPORTS AUTHORITY MOMBASA PRIMARY</column>
+            <column name="circuitid">95072608</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-06</column>
+            <column name="contact">0721944067 Stephen</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Active Fiber</column>
+            <column name="jobdescription">New installation - Primary Link</column>
+            <column name="execution">Deployment</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mombasa, Changamwe</column>
+            <column name="buildingname">MIA Mombasa</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-10-06</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002580</column>
+            <column name="entry">2580</column>
+            <column name="clientname">LUCY MKAJUMA CHEA</column>
+            <column name="circuitid">95069995</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-07</column>
+            <column name="contact">0722681011 Lucy</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Fiber installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">kilifi</column>
+            <column name="buildingname">AL-Madina</column>
+            <column name="buildingid">KLF242971</column>
+            <column name="orderdeadline">2021-09-14</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002581</column>
+            <column name="entry">2581</column>
+            <column name="clientname">JANET JACKSON AND SUSAN ADVOCATES</column>
+            <column name="circuitid">95070607</column>
+            <column name="projectmanager">Sammy Mutisya</column>
+            <column name="date">2021-09-08</column>
+            <column name="contact">0797894689 JJ</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Deployment - Internet installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">Completed</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mombasa Town</column>
+            <column name="buildingname">NSSF House</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-15</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002582</column>
+            <column name="entry">2582</column>
+            <column name="clientname">FRENCH DREAM LTD</column>
+            <column name="circuitid">95069994</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-08</column>
+            <column name="contact">0735736908 Dominique</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Deployment -New installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Diani</column>
+            <column name="buildingname">N/A</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-15</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002583</column>
+            <column name="entry">2583</column>
+            <column name="clientname">NCPB-Mombasa_Depot</column>
+            <column name="circuitid">95018599</column>
+            <column name="projectmanager">Geofrey Dena</column>
+            <column name="date">2021-09-10</column>
+            <column name="contact">722524414</column>
+            <column name="servicetype">WAN/IP MPLS</column>
+            <column name="technology">Wimax</column>
+            <column name="jobdescription">Support - Migration</column>
+            <column name="execution">Support</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">172.30.46.126</column>
+            <column name="physicallocation">Mombasa</column>
+            <column name="buildingname">NCPB Depot Shimanzi</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-17</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002584</column>
+            <column name="entry">2584</column>
+            <column name="clientname">URBANO LOUNGE LTD</column>
+            <column name="circuitid">793456068</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-11</column>
+            <column name="contact">Geoffrey 722218429</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">LTE</column>
+            <column name="jobdescription">Support - Relocation</column>
+            <column name="execution">Support</column>
+            <column name="status">Completed</column>
+            <column name="ipaddress">Dynamic</column>
+            <column name="physicallocation">Mombasa</column>
+            <column name="buildingname">N/A</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-13</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002585</column>
+            <column name="entry">2585</column>
+            <column name="clientname">KENYA AIRPORTS AUTHORITY-MALINDI BACKUP</column>
+            <column name="circuitid">95072618</column>
+            <column name="projectmanager">Dena</column>
+            <column name="date">2021-09-11</column>
+            <column name="contact">0721944067 Stephen</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Ceragon</column>
+            <column name="jobdescription">Support -  New installation</column>
+            <column name="execution">Support</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Malindi</column>
+            <column name="buildingname">KCAA Malindi</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-17</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002586</column>
+            <column name="entry">2586</column>
+            <column name="clientname">HAPA KENYA</column>
+            <column name="circuitid">95074002</column>
+            <column name="projectmanager">Mercy Nzilili</column>
+            <column name="date">2021-09-11</column>
+            <column name="contact">0721838459 Martin</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Active Fiber</column>
+            <column name="jobdescription">Support - relocation</column>
+            <column name="execution">Support</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mombasa, Kongowea</column>
+            <column name="buildingname">Hapa Kenya Kongowea</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-17</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002587</column>
+            <column name="entry">2587</column>
+            <column name="clientname">SAFEPAK LTD</column>
+            <column name="circuitid">95074004</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-11</column>
+            <column name="contact">0724390700 Catherine</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Active Fiber</column>
+            <column name="jobdescription">deployment </column>
+            <column name="execution">Deployment</column>
+            <column name="status">Returned</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Vipingo</column>
+            <column name="buildingname">N/A</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-17</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002588</column>
+            <column name="entry">2588</column>
+            <column name="clientname">ROBSON HARRIS AND CO</column>
+            <column name="circuitid">95073573</column>
+            <column name="projectmanager">Geofrey Dena</column>
+            <column name="date">2021-09-13</column>
+            <column name="contact">724320135 Julie</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Support Jobs</column>
+            <column name="execution">Support</column>
+            <column name="status">Completed</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mombasa</column>
+            <column name="buildingname">Ralli House</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-20</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002589</column>
+            <column name="entry">2589</column>
+            <column name="clientname">MOHAMED HASSAN</column>
+            <column name="circuitid">95072963</column>
+            <column name="projectmanager">Sammy Mutisya</column>
+            <column name="date">2021-09-14</column>
+            <column name="contact">0729232380 Mohamed</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Installation of fiber passive</column>
+            <column name="execution">Deployment</column>
+            <column name="status">Returned</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mombasa</column>
+            <column name="buildingname">Post Bank HSE</column>
+            <column name="buildingid">MBS141073</column>
+            <column name="orderdeadline">2021-09-21</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002590</column>
+            <column name="entry">2590</column>
+            <column name="clientname">SOTE LOGISTICS</column>
+            <column name="circuitid">95072957</column>
+            <column name="projectmanager">Stevens Ngombo</column>
+            <column name="date">2021-09-14</column>
+            <column name="contact">0795579079 Susan</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Deployment new installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">Completed</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mombasa</column>
+            <column name="buildingname">Jubilee Arcade</column>
+            <column name="buildingid">MBS142533</column>
+            <column name="orderdeadline">2021-09-21</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002591</column>
+            <column name="entry">2591</column>
+            <column name="clientname">FATUMA UMAZI MWARUWA</column>
+            <column name="circuitid">95067881</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-14</column>
+            <column name="contact">0757785030 Fatuma</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Active Fiber</column>
+            <column name="jobdescription">Deployment of fiber active installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">Completed</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mariakani</column>
+            <column name="buildingname">Comfort Hotel</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-21</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002592</column>
+            <column name="entry">2592</column>
+            <column name="clientname">SIMON NDURU KAGIA</column>
+            <column name="circuitid">95074005</column>
+            <column name="projectmanager">Geofrey Dena</column>
+            <column name="date">2021-09-14</column>
+            <column name="contact">0702639900 Simon</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Active Fiber</column>
+            <column name="jobdescription">Support</column>
+            <column name="execution">Support</column>
+            <column name="status">Completed</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Ukunda</column>
+            <column name="buildingname">Umbi Complex</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-21</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002593</column>
+            <column name="entry">2593</column>
+            <column name="clientname">SAFARI DOCTORS LTD</column>
+            <column name="circuitid">95075214</column>
+            <column name="projectmanager">Steven</column>
+            <column name="date">2021-09-16</column>
+            <column name="contact"> 254721779081</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Active Fiber</column>
+            <column name="jobdescription">Installation of new fiber</column>
+            <column name="execution">Deployment</column>
+            <column name="status">Completed</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Lamu</column>
+            <column name="buildingname">N/A</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-23</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002594</column>
+            <column name="entry">2594</column>
+            <column name="clientname">SAFARICOM LIMITED, ELI ZAPHAN HOUSE</column>
+            <column name="circuitid">95074015</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-16</column>
+            <column name="contact"> 254700732529</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Installation of new fiber to the business </column>
+            <column name="execution">Deployment</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">MALINDI</column>
+            <column name="buildingname">ELI ZAPHAN HOUSE</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-23</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002595</column>
+            <column name="entry">2595</column>
+            <column name="clientname">MARY GORRETI OCHWADA</column>
+            <column name="circuitid">95074012</column>
+            <column name="projectmanager">Steven Ngombo</column>
+            <column name="date">2021-09-17</column>
+            <column name="contact">Mary  254722326615</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Deploy installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">MALINDI</column>
+            <column name="buildingname">MALINDI COMPLEX</column>
+            <column name="buildingid">MLN141660 </column>
+            <column name="orderdeadline">2021-09-24</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002596</column>
+            <column name="entry">2596</column>
+            <column name="clientname">ACK PWANI CHRISTIAN SERVICES-HANNAH MWANCIFI</column>
+            <column name="circuitid">95074016</column>
+            <column name="projectmanager">Sammy</column>
+            <column name="date">2021-09-17</column>
+            <column name="contact">Willis Oguta</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Deploy new nstallation of fiber Passive</column>
+            <column name="execution">Deployment</column>
+            <column name="status">WIP</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Mombasa</column>
+            <column name="buildingname">ACK PLAZA</column>
+            <column name="buildingid">MBS141117</column>
+            <column name="orderdeadline">2021-09-24</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002597</column>
+            <column name="entry">2597</column>
+            <column name="clientname">DANCO HARDWARE AND ELECTRICALS</column>
+            <column name="circuitid">95074013</column>
+            <column name="projectmanager">Sammy Mutisya</column>
+            <column name="date">2021-09-18</column>
+            <column name="contact"> 254718669192 Danco Hardware</column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">Passive Fiber</column>
+            <column name="jobdescription">Installation of passive fiber</column>
+            <column name="execution">Deployment</column>
+            <column name="status">Returned</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">Ukunda</column>
+            <column name="buildingname">SIKU NJEMA PLAZA</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-25</column>
+        </table>
+        <table name="entrylog">
+            <column name="workorder">BES0002598</column>
+            <column name="entry">2598</column>
+            <column name="clientname">ASP  COMPANY LIMITED-2</column>
+            <column name="circuitid">110653735</column>
+            <column name="projectmanager">Stevens</column>
+            <column name="date">2021-09-22</column>
+            <column name="contact">Sai Srinivas 718848479           </column>
+            <column name="servicetype">Internet</column>
+            <column name="technology">LTE</column>
+            <column name="jobdescription">LTE New Installation</column>
+            <column name="execution">Deployment</column>
+            <column name="status">Returned</column>
+            <column name="ipaddress">N/A</column>
+            <column name="physicallocation">KAJIADO COUNTY, ISINYA</column>
+            <column name="buildingname">N/A</column>
+            <column name="buildingid">N/A</column>
+            <column name="orderdeadline">2021-09-23</column>
+        </table>
+        <!-- Table instructions -->
+        <table name="instructions">
+            <column name="id">31</column>
+            <column name="date">2021-09-11</column>
+            <column name="mhr">0.3</column>
+            <column name="pax">6</column>
+            <column name="artisan">Technician</column>
+            <column name="instruction">install fiber Gpon</column>
+            <column name="rate">2.5</column>
+            <column name="amount">4500</column>
+            <column name="orderid">BES0002580</column>
+        </table>
+        <table name="instructions">
+            <column name="id">32</column>
+            <column name="date">2021-09-13</column>
+            <column name="mhr">2.8</column>
+            <column name="pax">400</column>
+            <column name="artisan">Alex Muthui</column>
+            <column name="instruction">Installation fiber passive</column>
+            <column name="rate">2</column>
+            <column name="amount">5500</column>
+            <column name="orderid">BES0002588</column>
+        </table>
+        <table name="instructions">
+            <column name="id">36</column>
+            <column name="date">2021-09-07</column>
+            <column name="mhr">0.5</column>
+            <column name="pax">4</column>
+            <column name="artisan">Sammy</column>
+            <column name="instruction">Installation</column>
+            <column name="rate">45</column>
+            <column name="amount">9500</column>
+            <column name="orderid">BES0002588</column>
+        </table>
+        <!-- Table orderitems -->
+        <table name="orderitems">
+            <column name="id">5</column>
+            <column name="stockcode">Flex</column>
+            <column name="quantity">1</column>
+            <column name="um">meters </column>
+            <column name="description">Connecting flex</column>
+            <column name="up">150</column>
+            <column name="value">200</column>
+            <column name="orderid">95073904</column>
+        </table>
+        <table name="orderitems">
+            <column name="id">6</column>
+            <column name="stockcode">Trunk</column>
+            <column name="quantity">1</column>
+            <column name="um">pcs</column>
+            <column name="description">trunking</column>
+            <column name="up">150</column>
+            <column name="value">150</column>
+            <column name="orderid">95063804</column>
+        </table>
+        <table name="orderitems">
+            <column name="id">7</column>
+            <column name="stockcode">CabT</column>
+            <column name="quantity">30</column>
+            <column name="um">pcs</column>
+            <column name="description">cable ties</column>
+            <column name="up">20</column>
+            <column name="value">600</column>
+            <column name="orderid">95068704</column>
+        </table>
+        <table name="orderitems">
+            <column name="id">12</column>
+            <column name="stockcode">tr45</column>
+            <column name="quantity">4</column>
+            <column name="um">meters </column>
+            <column name="description">Trunking </column>
+            <column name="up">10</column>
+            <column name="value">40</column>
+            <column name="orderid">BES0002576</column>
+        </table>
+        <!-- Table session -->
+        <table name="session">
+            <column name="id">65</column>
+            <column name="year">2020</column>
+            <column name="session"></column>
+        </table>
+        <!-- Table staff -->
+        <table name="staff">
+            <column name="id">7</column>
+            <column name="firstname">Mike</column>
+            <column name="lastname">Wanaswa</column>
+            <column name="id_no">240678390</column>
+            <column name="email">mike@yahoo.com</column>
+            <column name="username">Munaa</column>
+            <column name="mobileno">075432678</column>
+        </table>
+        <table name="staff">
+            <column name="id">8</column>
+            <column name="firstname">sammy</column>
+            <column name="lastname">Nzuki</column>
+            <column name="id_no">35627881</column>
+            <column name="email">mwangi@yahoo.com</column>
+            <column name="username">samtish2010@gmail.com</column>
+            <column name="mobileno">+2547233334</column>
+        </table>
+        <!-- Table surveyjobs -->
+        <table name="surveyjobs">
+            <column name="customername">ACK BISHOP HANNINGTON INSTITUT</column>
+            <column name="solutionarchitect">Rose Kimani</column>
+            <column name="physicaladdress">Mombasa - Buxton</column>
+            <column name="coordinates">4 2 41.26 S 39 40 13.34 E</column>
+            <column name="surveytype">Microwave</column>
+            <column name="reqcode">REQ000003579810</column>
+            <column name="contactperson">Alfred Onyango</column>
+            <column name="contactdetails">712479833</column>
+            <column name="fieldengineer">Benson Mangenyi</column>
+            <column name="engcontacts">726732491</column>
+            <column name="datereceived">2021-09-20</column>
+            <column name="comments">Building NOT Fiber ready, Manhole 300mtrs away. There's LOS, NO Ceragon covarage,LTE signal is good</column>
+        </table>
+        <table name="surveyjobs">
+            <column name="customername">Amadeus Mada</column>
+            <column name="solutionarchitect">Daniel Kinuthia</column>
+            <column name="physicaladdress">Diani Ukunda</column>
+            <column name="coordinates">4 56 56.67 S 39 34 34.54</column>
+            <column name="surveytype">Microwave</column>
+            <column name="reqcode">REQ00000435443</column>
+            <column name="contactperson">Kinyua</column>
+            <column name="contactdetails">0</column>
+            <column name="fieldengineer">Benson</column>
+            <column name="engcontacts">3547729902</column>
+            <column name="datereceived">2021-08-19</column>
+            <column name="comments">Building is Fiber ready, LTE Coverage</column>
+        </table>
+        <table name="surveyjobs">
+            <column name="customername">BOC Kenya LTD</column>
+            <column name="solutionarchitect">Daniel Kinuthia</column>
+            <column name="physicaladdress">Liwatoni - Mombasa</column>
+            <column name="coordinates">4 03 56.2 S 39 39 35.3 E</column>
+            <column name="surveytype">All Media</column>
+            <column name="reqcode">REQ00000354834</column>
+            <column name="contactperson">Peter Muraya</column>
+            <column name="contactdetails">725824649</column>
+            <column name="fieldengineer">Danson/Nyiro</column>
+            <column name="engcontacts">702514903</column>
+            <column name="datereceived">2021-08-25</column>
+            <column name="comments">Building is Not Fiber ready, LTE is Posible</column>
+        </table>
+        <table name="surveyjobs">
+            <column name="customername">Cook N Lite</column>
+            <column name="solutionarchitect">Rose Kimani</column>
+            <column name="physicaladdress">Jela Baridi</column>
+            <column name="coordinates">4 2 46.31 S 39 39 17.70 E</column>
+            <column name="surveytype">All Media</column>
+            <column name="reqcode">N/A</column>
+            <column name="contactperson">Cleopas Juma</column>
+            <column name="contactdetails">737578050</column>
+            <column name="fieldengineer">Benson Mangenyi</column>
+            <column name="engcontacts">726732491</column>
+            <column name="datereceived">2021-09-20</column>
+            <column name="comments">Building Not fiber ready, Manhole 300Mtrs,LOS at Rooftop,Lte Signal good, No Ceragon Coverage</column>
+        </table>
+        <table name="surveyjobs">
+            <column name="customername">Faulu Bank</column>
+            <column name="solutionarchitect">Rose Kimani</column>
+            <column name="physicaladdress">Mazeras</column>
+            <column name="coordinates">4 56 56.67 S 39 34 34.56 E</column>
+            <column name="surveytype">WiFi</column>
+            <column name="reqcode">REQ00000433454</column>
+            <column name="contactperson">Muthuka</column>
+            <column name="contactdetails">786533124</column>
+            <column name="fieldengineer">Benson</column>
+            <column name="engcontacts">3547729902</column>
+            <column name="datereceived">2021-08-26</column>
+            <column name="comments">Building is Fiber ready</column>
+        </table>
+        <table name="surveyjobs">
+            <column name="customername">Faulu Branch - Mombasa</column>
+            <column name="solutionarchitect">Samuel Mwangi</column>
+            <column name="physicaladdress">Mombasa Town</column>
+            <column name="coordinates">-4.6999 S 39.7778</column>
+            <column name="surveytype">WiFi</column>
+            <column name="reqcode">REQ0000043556</column>
+            <column name="contactperson">Amhed</column>
+            <column name="contactdetails">734256678</column>
+            <column name="fieldengineer">Nyiro</column>
+            <column name="engcontacts">724567621</column>
+            <column name="datereceived">2021-08-26</column>
+            <column name="comments">Microwave, LTE, Ceragon Coverage</column>
+        </table>
+        <table name="surveyjobs">
+            <column name="customername">Jambo Steel</column>
+            <column name="solutionarchitect">Daniel Kinuthia</column>
+            <column name="physicaladdress">Malindi</column>
+            <column name="coordinates">N/A</column>
+            <column name="surveytype">WiFi</column>
+            <column name="reqcode">REQ0000043556</column>
+            <column name="contactperson">Muthuka</column>
+            <column name="contactdetails">7987477748</column>
+            <column name="fieldengineer">Ezekiel</column>
+            <column name="engcontacts">724516789</column>
+            <column name="datereceived">2021-08-11</column>
+            <column name="comments">Building is Fiber ready</column>
+        </table>
+        <table name="surveyjobs">
+            <column name="customername">Kyosk Digital Services</column>
+            <column name="solutionarchitect">Kelvin Kuria</column>
+            <column name="physicaladdress">Millie Fruits Processors</column>
+            <column name="coordinates">3 56 37.5 S 39 44 44 E</column>
+            <column name="surveytype"></column>
+            <column name="reqcode">REQ000003578042</column>
+            <column name="contactperson">Paul Yamoh</column>
+            <column name="contactdetails">110941308</column>
+            <column name="fieldengineer">Ron/Mercy</column>
+            <column name="engcontacts">708040163</column>
+            <column name="datereceived">2021-09-20</column>
+            <column name="comments">Not fiber Ready, JTL and Access Available, LTE</column>
+        </table>
+        <table name="surveyjobs">
+            <column name="customername">Safarilympics(sportday/Events)</column>
+            <column name="solutionarchitect">Rose Kimani</column>
+            <column name="physicaladdress">Mombasa Sports Club</column>
+            <column name="coordinates">4 3 49.03 S 39 40 3.33 E</column>
+            <column name="surveytype">All Media</column>
+            <column name="reqcode">REQ000003539257</column>
+            <column name="contactperson">Roe Kimani</column>
+            <column name="contactdetails">718732253</column>
+            <column name="fieldengineer">Nicholas Nyundo</column>
+            <column name="engcontacts">728997284</column>
+            <column name="datereceived">2021-08-24</column>
+            <column name="comments">LTE Coverage,Microwave - Clear LOS to Mbarari BTS</column>
+        </table>
+        <table name="surveyjobs">
+            <column name="customername">Watu Credit</column>
+            <column name="solutionarchitect">Abraham Agol</column>
+            <column name="physicaladdress">Kilifi</column>
+            <column name="coordinates">4 56 56.67 S 39 34 34.56 E</column>
+            <column name="surveytype"></column>
+            <column name="reqcode">REQ00000435443</column>
+            <column name="contactperson">Muthuka</column>
+            <column name="contactdetails">786533124</column>
+            <column name="fieldengineer">Ezekiel</column>
+            <column name="engcontacts">3547729902</column>
+            <column name="datereceived">2021-08-17</column>
+            <column name="comments">Not fiber Ready</column>
+        </table>
+        <!-- Table user -->
+        <table name="user">
+            <column name="id">18</column>
+            <column name="username">admin</column>
+            <column name="password">admin</column>
+            <column name="salt">21232f297a57a5a743894a0e4a801fc3</column>
+        </table>
+    </database>
+</pma_xml_export>

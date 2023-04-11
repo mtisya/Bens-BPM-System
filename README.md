@@ -2,7 +2,7 @@
 
 <h2>About The Project</h2>
 
-<p>We developed this Business Process Management sysytem, with the aim of automation of the repetitive processes and the need to reduce paper work this software is designed to help administration in day to day learning of the business in all department, there is a turn-around document designed to provide the solution where all kinds of data needed to perform a given tasks is centralized</p>
+<p>We developed this Business Process Management Sysytem, with the aim of automation of the repetitive processes and the need to reduce paper work this software is designed to help administration in day to day learning of the business in all department, It implements a turn-around document designed to provide the solution where all kinds of data needed to perform a given tasks is centralized</p>
 
 <h4>Home Page</h4>
 
@@ -18,17 +18,17 @@
 2. Turn Around Document - T.O.D.
 3. Consolidated Reports 
 
-## Unique automated orderNumber
+<h4>Unique automated orderNumber</h4>
 
 ![Capture5](https://user-images.githubusercontent.com/8428844/231167187-fc1e08b7-e66b-4cdb-a71a-b08ab2582204.PNG)
 
-## Turn Around Document - T.O.D.
+<h4>Turn Around Document - T.O.D.</h4>
 
 ![Capture6](https://user-images.githubusercontent.com/8428844/231167335-d4099cca-66e5-4997-8dc4-44cd65838838.PNG)
 
 <h4>Project Demo</h4>
 
-## <iframe><video src="image/video/instoredemo.vlc"></video></iframe>
+<video><iframe><video src="image/video/instoredemo.vlc"></video></iframe></video>
 
 <h4>Premium owner</h4> 
 
@@ -52,4 +52,4 @@ Clone the git respository to your local folder(root directory) for example htdoc
 
 <h4>License</h4>
 
-This is an ecommerce project and is open-source software NOT licensed under the [MIT license].
+This is an ecommerce project and is open-source software licensed under the [MIT license].

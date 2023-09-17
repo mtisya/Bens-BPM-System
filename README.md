@@ -1,8 +1,8 @@
-<h1>BPM  Project (https://github.com/mtisya/Bens-BPM-System/).</h1>
+<h1>BPM  Project (https://bpmsystem.mutisoftwares.co.ke/).</h1>
 
 <h2>About The Project</h2>
 
-<p>We developed this Business Process Management Sysytem, with the aim of automation of the repetitive processes and the need to reduce paper work this software is designed to help administration in day to day learning of the business in all department, It implements a turn-around document designed to provide the solution where all kinds of data needed to perform a given tasks is centralized</p>
+<p>We developed this Business Process Management System, with the aim of automation of repetitive processes and the need to reduce paperwork this software is designed to help the administration in day-to-day learning of the business in all departments, It implements a turn-around document designed to provide the solution where all kinds of data needed to perform a given task is centralized</p>
 
 <h4>Home Page</h4>
 
@@ -10,11 +10,11 @@
 ![Capture4](https://user-images.githubusercontent.com/8428844/231167111-6e4e1e30-efd2-4c8f-a824-69b9bf653fab.PNG)
 
 
-<p> The development process gave me enjoyable and creative experience and is truly fulfilling. In this project I gained more experience and techniques in software/system development, enriched my knowledge in HTML, CSS(bootstrap), PHP, and javaScript, jQuery:</p>
+<p> The development process gave me an enjoyable and creative experience and is truly fulfilling. In this project, I gained more experience and techniques in software/system development, enriched my knowledge in HTML, CSS(bootstrap), PHP, and JavaScript, jQuery:</p>
 
 <h4>Main Features</h4> 
 
-1. Unique automated orderNumber
+1. Unique automated order number
 2. Turn Around Document - T.O.D.
 3. Consolidated Reports 
 
